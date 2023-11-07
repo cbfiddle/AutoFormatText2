@@ -1,18 +1,32 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.github.cbfiddle.autoformattext2</id>
-    <name>AutoFormatText2 Template</name>
-    <vendor>cbfiddle</vendor>
-
+    <name>Auto-Format Text 2</name>
+    <version>0.1.1</version>
+    <vendor>Alan Snyder</vendor>
     <depends>com.intellij.modules.platform</depends>
-
     <resource-bundle>messages.MyBundle</resource-bundle>
-
+    <actions>
+        <action
+                id="com.github.cbfiddle.autoformattext2.AutoFormatTextAction"
+                class="com.github.cbfiddle.autoformattext2.AutoFormatTextAction"
+                text="Format Text">
+            <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="control T"
+            />
+            <add-to-group
+                group-id="EditSmartGroup"
+                anchor="before"
+                relative-to-action="FillParagraph"
+            />
+        </action>
+    </actions>
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.cbfiddle.autoformattext2.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+      <applicationConfigurable parentId="tools"
+                               instance="com.github.cbfiddle.autoformattext2.AppSettingsConfigurable"
+                               id="org.intellij.sdk.settings.AppSettingsConfigurable"
+                               displayName="Auto-Format Text 2"/>
+      <applicationService serviceImplementation="com.github.cbfiddle.autoformattext2.AppSettingsState"/>
     </extensions>
-
-    <applicationListeners>
-        <listener class="com.github.cbfiddle.autoformattext2.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
-    </applicationListeners>
 </idea-plugin>
